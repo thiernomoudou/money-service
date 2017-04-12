@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render, redirect
-
+from django.shortcuts import render, redirect 
+from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm
 
@@ -25,8 +25,12 @@ def login_view(request):
                 else:
                     print("the account has been disabled")
             else:
-                print("The username and password were incorrect")
+                return HttpResponse("username or password were incorrect")
 
     else:
         form = LoginForm()
         return render(request, 'login.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
