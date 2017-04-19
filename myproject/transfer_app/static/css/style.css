@@ -23,7 +23,17 @@
 	color: blue;
 }
 
+table {
+  table-layout: auto;
+  width: 100%;
+  border-collapse: collapse;
+  border: 3px solid blue;
+}
 
+table td, table th {
+  border : 1px solid blue;
+  padding: 0.5em 0.5em 0.4em;
+}
 
 
 
