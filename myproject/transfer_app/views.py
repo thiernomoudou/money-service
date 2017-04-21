@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404 
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
@@ -9,6 +9,7 @@ from .forms import LoginForm, TransactionForm, ReportingForm
 import datetime
 
 
+@login_required
 def home(request):
     return render(request, 'home.html')
 
@@ -38,6 +39,7 @@ def logout_view(request):
     return redirect('login')
 
 
+@login_required
 def transactions(request):
     form = TransactionForm()
     forms = ReportingForm()
@@ -46,29 +48,37 @@ def transactions(request):
         forms = ReportingForm(request.POST)
         if form.is_valid():
             form.save(commit=True)
-            forms.save(commit=True)
-            # TransactionModel.objects.create(origin=form.cleaned_data['origin'], destination=form.cleaned_data['destination'], sender_name=form.cleaned_data['sender_name'], sender_phone=form.cleaned_data['sender_phone'], receiver_name=form.cleaned_data['receiver_name'], receiver_location=form.cleaned_data['receiver_location'], receiver_phone=form.cleaned_data['receiver_phone'], amount=form.cleaned_data['amount'], currency=form.cleaned_data['currency'] )
+            #forms.save(commit=True)
         return redirect('operations')
     else:
         return render(request, 'transactions.html', {'form': form})
     
 
+@login_required
 def operations(request):
     transactions = TransactionModel.objects.all()
     
     return render(request, 'operations.html', {'transactions':transactions})
 
+@login_required
 def reporting(request):
      reports = ReportingModel.objects.all()
             
      return render(request, 'reporting.html', {"reports": reports})
 
-
+@login_required
 def delete(request):
-    pk = request.GET.get('pk', 'None')    
+    pk = request.POST.get('pk', 'None')    
     action = get_object_or_404(TransactionModel, pk=pk)
+    paction = get_object_or_404(TransactionModel, pk=pk)
+    reportaction = ReportingModel()
+    model_dic = paction.__dict__
+    model_dic.pop(pk, None)
+    reportaction.__dict__ = model_dic
+    reportaction.pk = None
+    reportaction.save()
+
     action.delete()
     return HttpResponse('')
-    return redirect('operations')
         
     

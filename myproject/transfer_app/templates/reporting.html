@@ -2,13 +2,15 @@
 
 
 {%block content%}
+
+ 
+
+
 <div class="container-fluid">
 
-<h1>welcome to reporting</h1>
-
 {% if reports %}
-<h1> reportings </h1>
-<table>
+<h1> Reportings table </h1>
+<table id="table_id" class="display">
 	<thead>
         <tr>
           <th scope="col">N<sup>o</sup></th>
@@ -22,7 +24,7 @@
           <th scope="col">Beneficiary Phone</th>
           <th scope="col">Amount</th>
           <th scope="col">Currency</th>
-          <th scope="col">Purpose</th>
+          <th scope="col" class="purpose">Purpose</th>
         </tr>
       </thead>
       <tbody>
@@ -53,5 +55,12 @@
 <h3>No transaction yet</h3>
 {% endif %}
 </div>
+
+
+<script>
+	$(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+</script>
 	
 {% endblock %}
