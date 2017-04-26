@@ -2,14 +2,17 @@
 
 
 {%block content%}
-
-<h1>welcome to transactions</h1>
-
-<form action="{% url 'transactions' %}" method="POST">
+<div class="container">
+<h3 class="trans-title">Transaction Form</h3>
+<p>Add any transaction by filling this form and submitting it by clicking the send button</p>
+<form action="{% url 'transactions' %}" method="POST" class="col-md-4 col-md-offset-4 transaction-form" >
 {% csrf_token %}
 
 {{ form.as_p}}
-<input type="submit" value='send'>	
+
+<input type="submit" value='send' class="btn btn-primary btn-sm">	
+
 </form>
+</div>
 
 {% endblock %}

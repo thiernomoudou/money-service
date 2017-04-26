@@ -3,40 +3,23 @@ from __future__ import unicode_literals
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404 
 from django.http import HttpResponse
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from .models import TransactionModel, ReportingModel
-from .forms import LoginForm, TransactionForm, ReportingForm
+from .forms import TransactionForm, ReportingForm
 import datetime
+
+
+def index(request):
+    if request.user.is_authenticated():
+        return home(request)
+    else:
+        return render(request, 'login.html')
 
 
 @login_required
 def home(request):
     return render(request, 'home.html')
-
-def login_view(request):
-    form = LoginForm()
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            u = form.cleaned_data['username']
-            p = form.cleaned_data['password']
-            user = authenticate(username = u, password = p)
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return redirect('home')
-                else:
-                    print("the account has been disabled")
-            else:
-                return HttpResponse("username or password were incorrect")
-
-    else:
-        form = LoginForm()
-        return render(request, 'login.html', {'form': form})
-
-def logout_view(request):
-    logout(request)
-    return redirect('login')
 
 
 @login_required
@@ -48,8 +31,7 @@ def transactions(request):
         forms = ReportingForm(request.POST)
         if form.is_valid():
             form.save(commit=True)
-            #forms.save(commit=True)
-        return redirect('operations')
+        return redirect('home')
     else:
         return render(request, 'transactions.html', {'form': form})
     
