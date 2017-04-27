@@ -1,4 +1,5 @@
 {%extends "base.html"%}
+{% load humanize %}
 
 
 {%block content%}
@@ -9,7 +10,7 @@
 <div class="container-fluid">
 
 {% if reports %}
-<h1> Reportings table </h1>
+<h1> Reporting table </h1>
 <div id="baseDateControl">
 <div class="dateControlBlock">
 <input type="text" id="dateStart" placeholder="From"  /> 
@@ -38,7 +39,7 @@
       <tbody>
       	{% for trans in reports %}
       	<tr>
-      		<th scope="row">{{trans.pk}}</th>
+      		<th scope="row">{{forloop.counter}}</th>
       		<td>{{trans.date|date:"SHORT_DATE_FORMAT"}}</td>
       		<td>{{trans.origin}}</td>
       		<td>{{trans.destination}}</td>
@@ -47,7 +48,7 @@
       		<td>{{trans.receiver_name}}</td>
       		<td>{{trans.receiver_location}}</td>
       		<td>{{trans.receiver_phone}}</td>
-      		<td>{{trans.amount}}</td>
+      		<td>{{trans.amount|intcomma}}</td>
       		<td>{{trans.currency}}</td>
       		<td>{{trans.purpose}}</td>
 
@@ -55,6 +56,13 @@
       	{% endfor %}
       </tbody>
       <tfoot>
+      <tr>
+          <th scope="row" colspan="2">Total</th>
+          <td colspan="2"></td>
+          <td colspan="2"></td>
+          <td colspan="2"></td>
+           <td colspan="2"></td>
+        </tr>
       	
       </tfoot>
 </table>

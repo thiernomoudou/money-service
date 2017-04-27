@@ -32,7 +32,6 @@ $.fn.dataTableExt.afnFiltering.push(
 );	 
 
 
-
 jQuery(document).ready(function(){
 
 $(".btn-operation").on('click', function(){
@@ -41,14 +40,14 @@ $(".btn-operation").on('click', function(){
 
 	deleteTransaction(element);
 
-	function deleteTransaction(photoId) {
+	function deleteTransaction(param) {
     swal({
       title: "Are you sure?", 
       text: "Are you sure that you have processed this transaction?", 
       type: "warning",
       showCancelButton: true,
       closeOnConfirm: false,
-      confirmButtonText: "Yes, remove it!",
+      confirmButtonText: "Yes, send it!",
       confirmButtonColor: "#ec6c62"
     }, function() {
        $.ajax({
@@ -71,7 +70,7 @@ $(".btn-operation").on('click', function(){
 
 $('#table_id').DataTable();
 
- var table = $('#table_id').DataTable();
+var table = $('#table_id').DataTable();
 $('#dateStart, #dateEnd').keyup( function() { table.draw(); } );
 
 function getCookie(name) {

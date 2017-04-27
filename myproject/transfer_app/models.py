@@ -14,7 +14,8 @@ CURRENCY_CHOICES = (
     )
 
 PURPOSE_CHOICES = (
-    ('CASH', 'Cash'),
+    ('CASH', 'Cash $'),
+    ('ORANGE MONEY', 'Orange Money'),
     ('PHONE CREDIT', 'Phone Credit')
     )
 

@@ -1,4 +1,5 @@
 {%load static%}
+ {% load humanize %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,14 +17,23 @@
 <body>
 <nav class="navbar navbar-default navbar-static-top text-center">
 	{% if user.is_authenticated %}
-
-        <a class="navbar-text nav-log" href="{% url 'logout' %}">logout</a>
+	  
+	  <ul class="nav nav-tabs">
+        <li><a class="" href="{% url 'home' %}">Home</a></li>
+        <li><a class="" href="{% url 'transactions' %}">Transactions</a></li>
+        <li><a class="" href="{% url 'operations' %}">Operations</a></li>
+        <li><a class="" href="{% url 'reporting' %}">Reporting</a></li>
+        <li><a class="" href="{% url 'summary' %}">Summary</a></li>
+        <a class="" href="{% url 'logout' %}">logout</a>
+      </ul>
+       
 
 	{% else %}
 
 	     <a class="navbar-text nav-log" href="{% url 'login' %}">login</a>
 
 	{% endif %}
+
 </nav>
  
 {%block content%}

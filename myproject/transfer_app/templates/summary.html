@@ -1,0 +1,46 @@
+{%extends "base.html"%}
+{% load humanize %}
+
+{%block content%}
+
+<div class="container">
+ 
+<h1>Summary Table</h1>
+
+<table lang="en-US" class="well summary-table">
+  <thead>
+    <tr>
+      <th scope="col">Description</th>
+      <th scope="col">Value</th>
+    </tr>
+ </thead>
+ <tbody>
+ 	<tr>
+      <td>Total Dollar Tranctions (Number)</td>
+      <td>{{dollar_count}}</td>
+    </tr>
+    <tr>
+      <td>Total Amount Dollar Transactions</td>
+      <td>{{dollar_sum|intcomma}}</td>
+    </tr>
+    <tr>
+      <td>Total GNF Transactions (Number)</td>
+      <td>{{gnf_count}}</td>
+    </tr>
+     <tr>
+      <td>Total Amount GNF Transactions</td>
+      <td>{{gnf_sum|intcomma}}</td>
+    </tr>
+     <tr>
+      <td>Total Pending Transactions (Number)</td>
+      <td>{{total_pending_count}}</td>
+    </tr>
+    <tr>
+      <td>Total Processed Transactions (Number)</td>
+      <td>{{total_processed_count}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+ </tbody>
+{% endblock %}

@@ -5,6 +5,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.db.models import Sum, Avg, Max, Min, Count
+
 from .models import TransactionModel, ReportingModel
 from .forms import TransactionForm, ReportingForm
 import datetime
@@ -64,3 +66,16 @@ def delete(request):
     return HttpResponse('')
         
     
+@login_required
+def summary(request):
+    dollar_count = ReportingModel.objects.filter(currency__iexact='usd').count()
+    dollar_sum = ReportingModel.objects.filter(currency__iexact='usd').aggregate(Sum('amount')).values()[0]
+    gnf_count = ReportingModel.objects.filter(currency__iexact='gnf').count()
+    gnf_sum = ReportingModel.objects.filter(currency__iexact='gnf').aggregate(Sum('amount')).values()[0]
+    total_processed_count = ReportingModel.objects.count()
+    total_pending_count = TransactionModel.objects.count()
+
+    context={'dollar_count': dollar_count, 'dollar_sum': dollar_sum, 'gnf_count': gnf_count, 'gnf_sum': gnf_sum,
+        'total_processed_count': total_processed_count, 'total_pending_count': total_pending_count}
+
+    return render(request, 'summary.html', context)

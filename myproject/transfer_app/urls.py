@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^home/operations/$', views.operations, name='operations'),
     url(r'^home/reporting/$', views.reporting, name='reporting'),  
     url(r'^delete/$', views.delete, name='delete'),
+    url(r'^home/reporting/summary/$', views.summary, name='summary'),
     ]
     

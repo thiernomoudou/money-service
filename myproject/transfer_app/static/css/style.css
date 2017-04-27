@@ -50,6 +50,9 @@ table td, table th {
   padding: 0.5em 0.5em 0.4em;
 }
 
+table tfoot td, table tfoot th{
+	border: 0 solid;
+}
 
 .operation-table, .reporting-table{
 	margin-top: 2%;
@@ -59,11 +62,15 @@ table td, table th {
 	margin-bottom: 20%;
 }
 
+.summary-table{
+	font-weight: 500;
+	font-size: 120%;
+}
 
+.summary-table 
 .nav-log{
 	font-size: 180%;
 	color: blue;
-	text-align: center;
 }
 
 
@@ -90,6 +97,8 @@ table td, table th {
 		text-align: center;
 	}
 
-
+    .summary-table{
+	font-weight: 400;
+	font-size: 150%;
 
 }

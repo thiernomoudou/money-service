@@ -1,5 +1,5 @@
 {%extends "base.html"%}
-
+{% load humanize %}
 
 {%block content%}
 
@@ -29,7 +29,7 @@
       <tbody>
       	{% for trans in transactions %}
       	<tr>
-      		<th scope="row">{{trans.pk}}</th>
+      		<th scope="row">{{forloop.counter}}</th>
       		<td>{{trans.date|date:"SHORT_DATE_FORMAT"}}</td>
       		<td>{{trans.origin}}</td>
       		<td>{{trans.destination}}</td>
@@ -38,7 +38,7 @@
       		<td>{{trans.receiver_name}}</td>
       		<td>{{trans.receiver_location}}</td>
       		<td>{{trans.receiver_phone}}</td>
-      		<td>{{trans.amount}}</td>
+      		<td>{{trans.amount|intcomma}}</td>
       		<td>{{trans.currency}}</td>
       		<td>{{trans.purpose}}</td>
       		<td><button class="btn-operation" data-pk={{trans.pk}}>OK</button></td>
